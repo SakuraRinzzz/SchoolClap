@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/AndroidProgram/MyApplication2/app/main/res/menu/menu_btn_navigation_view.xml" value="0.25364583333333335" />
+        <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/main/res/menu/menu_btn_navigation_view.xml" value="0.25364583333333335" />
+        <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/res/layout/activity_main_fragment.xml" value="0.264" />
+        <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/res/layout/activity_map.xml" value="0.20471014492753623" />
+        <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/res/layout/activity_upload.xml" value="0.21784420289855072" />
+        <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/res/layout/fragment_camera.xml" value="0.264" />
+        <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/res/layout/fragment_news.xml" value="0.264" />
+        <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/res/layout/fragment_news_list.xml" value="0.2259963768115942" />
+        <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/res/layout/fragment_upload.xml" value="0.4" />
+        <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/res/layout/news_item.xml" value="0.264" />
+        <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/res/layout/news_item2.xml" value="0.4" />
+        <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/res/layout/news_list_item.xml" value="0.1911231884057971" />
+        <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/res/menu/bottom_sheet.xml" value="0.27447916666666666" />
+        <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/res/menu/menu_btn_navigation_view.xml" value="0.25364583333333335" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
