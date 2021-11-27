@@ -55,10 +55,11 @@ public class CameraFragment extends Fragment implements View.OnClickListener{
         switch(view.getId())
         {
             case R.id.img_upload:
-                NavController controller = Navigation.findNavController(view);
-                controller.navigate(R.id.action_cameraFragment_to_uploadFragment);
-//                Intent intent = new Intent(getActivity(),UploadActivity.class);
-//                startActivity(intent);
+                //点击上传相片图片时，导航到 uploadFragment
+//                NavController controller = Navigation.findNavController(view);
+//                controller.navigate(R.id.action_cameraFragment_to_uploadFragment);
+                Intent intent = new Intent(getActivity(),UploadActivity.class);
+                startActivity(intent);
 
                 break;
             case R.id.img_history:

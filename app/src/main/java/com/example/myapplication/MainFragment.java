@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
@@ -22,23 +23,30 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainFragment extends AppCompatActivity{
 
-    private BottomNavigationView bottomMenu;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+        //supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main_fragment);
 
         //初始化
-        bottomMenu = findViewById(R.id.bnv_menu);
+        BottomNavigationView bottomMenu = findViewById(R.id.bnv_menu);
 
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        NavHostFragment navHostFragment = (NavHostFragment) fragmentManager.findFragmentById(R.id.fragmentContainerView);
-        NavController navController = navHostFragment.getNavController();
+        NavController navController = Navigation.findNavController(this,R.id.fragmentContainerView);
+        //具有左上角返回箭头的实现方式
+//        AppBarConfiguration configuration = new AppBarConfiguration.Builder(navController.getGraph()).build();
+        //不具有左上角返回箭头的实现方式
+        AppBarConfiguration configuration = new AppBarConfiguration.Builder(bottomMenu.getMenu()).build();
+        NavigationUI.setupActionBarWithNavController(this,navController,configuration);
         NavigationUI.setupWithNavController(bottomMenu,navController);
+
+
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        NavHostFragment navHostFragment = (NavHostFragment) fragmentManager.findFragmentById(R.id.fragmentContainerView);
+//        NavController navController = navHostFragment.getNavController();
+//        NavigationUI.setupWithNavController(bottomMenu,navController);
+
+
     }
 
 }

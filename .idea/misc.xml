@@ -3,9 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Android/SchoolClap/app/src/main/res/layout/activity_git.xml" value="0.161231884057971" />
         <entry key="..\:/AndroidProgram/MyApplication2/app/main/res/menu/menu_btn_navigation_view.xml" value="0.25364583333333335" />
         <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/main/res/menu/menu_btn_navigation_view.xml" value="0.25364583333333335" />
+        <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/res/layout/activity_history.xml" value="0.22916666666666666" />
         <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/res/layout/activity_main_fragment.xml" value="0.264" />
         <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/res/layout/activity_map.xml" value="0.20471014492753623" />
         <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/res/layout/activity_upload.xml" value="0.21784420289855072" />
@@ -13,6 +13,7 @@
         <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/res/layout/fragment_news.xml" value="0.264" />
         <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/res/layout/fragment_news_list.xml" value="0.2259963768115942" />
         <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/res/layout/fragment_upload.xml" value="0.4" />
+        <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/res/layout/history_item.xml" value="0.4" />
         <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/res/layout/news_item.xml" value="0.264" />
         <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/res/layout/news_item2.xml" value="0.4" />
         <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/res/layout/news_list_item.xml" value="0.1911231884057971" />

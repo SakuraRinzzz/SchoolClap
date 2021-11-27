@@ -25,8 +25,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
+            android:name=".HistoryActivity"
+            android:exported="true"
+            android:parentActivityName=".MainFragment"/>
+        <activity
             android:name=".UploadActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:parentActivityName=".MainFragment" />
         <activity
             android:name=".MapActivity"
             android:exported="true" />

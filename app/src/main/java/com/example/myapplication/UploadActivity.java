@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -19,6 +20,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,15 +47,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import retrofit2.http.Url;
+
 public class UploadActivity extends AppCompatActivity {
 
-    private EditText title;
-    private EditText describe;
+    private EditText eTitle;     //标题
+    private EditText eDescribe;  //描述
     private ImageView imageView;
     private Button btnUpload;
 
     //定位相关
-    private ImageView imgLocation;
+    private ImageView imgLocation;  //定位信息
     private TextView locationMsg;
     private StringBuilder currentPosition;
     private LocationClient locationClient = null;
@@ -64,6 +68,7 @@ public class UploadActivity extends AppCompatActivity {
     private String mTempPhotoPath;
     // 照片所在的Uri地址
     private Uri imageUri;
+    private String imageUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,8 +81,8 @@ public class UploadActivity extends AppCompatActivity {
     //初始化
     private void initView()
     {
-        title = findViewById(R.id.edittext_title);
-        describe = findViewById(R.id.edittext_describe);
+        eTitle = findViewById(R.id.edittext_title);
+        eDescribe = findViewById(R.id.edittext_describe);
         imageView = findViewById(R.id.imageView);
         btnUpload = findViewById(R.id.btn_upload);
         imgLocation = findViewById(R.id.img_location);
@@ -91,6 +96,7 @@ public class UploadActivity extends AppCompatActivity {
         btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Upload();
             }
         });
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -107,6 +113,19 @@ public class UploadActivity extends AppCompatActivity {
                 requestPermission(GlobalConstants.GET_LOCATION);
             }
         });
+    }
+
+    //上传
+    private void Upload() {
+
+        //获取用户填写的数据
+        String title = eTitle.getText().toString();
+        String desc = eDescribe.getText().toString();
+        String address = locationMsg.getText().toString();
+
+        //封装为FeedBack对象
+
+
     }
 
 
@@ -181,6 +200,8 @@ public class UploadActivity extends AppCompatActivity {
                                         Environment.getExternalStorageDirectory() + File.separator + "photo_" + timeStamp + ".jpg";
 
                                 File file = new File(mTempPhotoPath);
+                                imageUrl = file.getAbsolutePath();
+                                Log.e("绝对路径",file.getAbsolutePath());
                                 try {
                                     if (file.exists()) {
                                         file.delete();
@@ -194,6 +215,7 @@ public class UploadActivity extends AppCompatActivity {
                                     imageUri = FileProvider.getUriForFile(getApplicationContext(), "com.example.camerademo.fileprovider", file);
                                 } else {
                                     imageUri = Uri.fromFile(file);
+                                    Log.e("图片的URI",imageUri.toString());
                                 }
                                 //动态申请权限
                                 requestPermission(GlobalConstants.TAKE_PHOTO);
@@ -244,10 +266,20 @@ public class UploadActivity extends AppCompatActivity {
             case GlobalConstants.CHOOSE_PHOTO:
                 if (resultCode == GlobalConstants.RESULT_OK) {
                     imageUri = data.getData();
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+                    Cursor cursor = getContentResolver().query(imageUri,
+                            filePathColumn, null, null, null);
+                    cursor.moveToFirst();
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    imageUrl = cursor.getString(columnIndex);
+                    Log.e("11111",imageUrl);
+
                     if (imageUri != null)
                     {
                         try {
                             Bitmap bitmap = BitmapFactory.decodeStream(this.getContentResolver().openInputStream(imageUri));
+
                             imageView.setImageBitmap(bitmap);
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
