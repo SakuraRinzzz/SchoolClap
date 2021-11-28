@@ -12,9 +12,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myapplication.entity.Result;
+import com.example.myapplication.server.LoginServer;
+import com.example.myapplication.server.RegisterServer;
 import com.example.myapplication.util.SaveSharedPreferences;
 
 import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -23,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView register_request;
     private Button login_button;
 
+    private final String BASE_URL = "http://49.235.134.191:8080";
     final String ACCOUNT="ROOT";
     final String PASSWORD="123456";
 
@@ -31,16 +41,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login_relativelayout);
-
+        //初始化控件
         initView();
-
+        //从本地读取保存的登录信息
         Map<String,String> userInfo = SaveSharedPreferences.getUserInfo(this);
         if (userInfo!=null)
         {
             etAccount.setText(userInfo.get("Account"));
             etPassword.setText(userInfo.get("Password"));
         }
-
     }
 
     public void initView()
@@ -68,29 +77,66 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.button_login:
+                //获取账号密码
                 String account = etAccount.getText().toString().trim();
                 String password = etPassword.getText().toString();
-
+                //判断账号密码是否非空
                 if (TextUtils.isEmpty(account)||TextUtils.isEmpty(password)){
                     Toast.makeText(MainActivity.this, "账号密码不能为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                //发送登录请求
+                requestLogin(account,password);
 
-                if (account.equals(ACCOUNT)&& password.equals(PASSWORD))
+//                if (account.equals(ACCOUNT)&& password.equals(PASSWORD))
+//                {
+//                    i =new Intent(MainActivity.this,MainFragment.class);
+//                    startActivity(i);
+//                    Toast.makeText(MainActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+//                    SaveSharedPreferences.saveUserInfo(this,account,password);
+//                    Toast.makeText(MainActivity.this, "账号密码保存成功", Toast.LENGTH_SHORT).show();
+//                    finish();
+//                }
+//                else
+//                {
+//                    Toast.makeText(MainActivity.this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+                break;
+        }
+    }
+
+    private void requestLogin(String account, String password) {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        LoginServer server = retrofit.create(LoginServer.class);
+        Call<Result> call = server.requestLogin(account,password);
+        call.enqueue(new Callback<Result>() {
+            @Override
+            public void onResponse(Call<Result> call, Response<Result> response) {
+                if (response.body().getCode() == 200)
                 {
-                    i =new Intent(MainActivity.this,MainFragment.class);
+                    //提示登录成功
+                    Toast.makeText(getApplicationContext(), "登录成功", Toast.LENGTH_SHORT).show();
+                    //跳转到主界面MainFragment
+                    Intent i =new Intent(MainActivity.this,MainFragment.class);
                     startActivity(i);
-                    Toast.makeText(MainActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-                    SaveSharedPreferences.saveUserInfo(this,account,password);
+                    //保存账号密码到本地
+                    SaveSharedPreferences.saveUserInfo(getApplicationContext(),account,password);
                     Toast.makeText(MainActivity.this, "账号密码保存成功", Toast.LENGTH_SHORT).show();
                     finish();
                 }
                 else
-                {
-                    Toast.makeText(MainActivity.this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                break;
-        }
+                    //提示登录失败
+                    Toast.makeText(getApplicationContext(), "登录失败！", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onFailure(Call<Result> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "登录失败！", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
