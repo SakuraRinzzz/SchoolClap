@@ -2,12 +2,14 @@ package com.example.myapplication;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -27,6 +29,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,8 +39,14 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.SDKInitializer;
 import com.cocosw.bottomsheet.BottomSheet;
+import com.example.myapplication.entity.FeedBack;
+import com.example.myapplication.entity.Result;
 import com.example.myapplication.fragment.UploadFragment;
+import com.example.myapplication.server.UploadServer;
 import com.example.myapplication.util.GlobalConstants;
+import com.example.myapplication.util.SaveSharedPreferences;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -46,7 +55,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Url;
 
 public class UploadActivity extends AppCompatActivity {
@@ -55,6 +72,17 @@ public class UploadActivity extends AppCompatActivity {
     private EditText eDescribe;  //描述
     private ImageView imageView;
     private Button btnUpload;
+    private RadioGroup typeGroup;
+    private RadioGroup importanceGroup;
+
+    //保存 feedback信息
+    private String title;           //标题
+    private String desc;            //描述
+    private String address;         //地址
+    private String category;        //问题类别
+    private int degree;             //问题级别
+    private String account;         //账号
+    private String imageUrl;        //图片URL
 
     //定位相关
     private ImageView imgLocation;  //定位信息
@@ -62,13 +90,13 @@ public class UploadActivity extends AppCompatActivity {
     private StringBuilder currentPosition;
     private LocationClient locationClient = null;
     private MyLocationListener locationListener = new MyLocationListener();
-    private boolean isMyLocation = true;
 
     // 拍照的照片的存储位置
     private String mTempPhotoPath;
+    private final String BASE_URL = "http://49.235.134.191:8080";
     // 照片所在的Uri地址
     private Uri imageUri;
-    private String imageUrl;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +104,8 @@ public class UploadActivity extends AppCompatActivity {
         SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.activity_upload);
         initView();
+        //请求定位权限
+        requestPermission(GlobalConstants.GET_LOCATION);
     }
 
     //初始化
@@ -87,6 +117,8 @@ public class UploadActivity extends AppCompatActivity {
         btnUpload = findViewById(R.id.btn_upload);
         imgLocation = findViewById(R.id.img_location);
         locationMsg = findViewById(R.id.tv_showData);
+        importanceGroup = findViewById(R.id.importanceGroup);
+        typeGroup = findViewById(R.id.typeGroup);
 
         locationClient = new LocationClient(getApplicationContext());
         //注册监听函数
@@ -94,6 +126,7 @@ public class UploadActivity extends AppCompatActivity {
 
 
         btnUpload.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("NewApi")
             @Override
             public void onClick(View view) {
                 Upload();
@@ -108,24 +141,102 @@ public class UploadActivity extends AppCompatActivity {
         imgLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(getActivity(), MapActivity.class);
-//                startActivityForResult(intent, GlobalConstants.GET_LOCATION);
                 requestPermission(GlobalConstants.GET_LOCATION);
             }
         });
+        //为问题类型radioButton绑定事件监听器
+        typeGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch(i)
+                {
+                    case R.id.rb_security:
+                        category = "安全隐患";
+                        break;
+                    case R.id.rb_health:
+                        category = "卫生问题";
+                        break;
+                    case R.id.rb_rule:
+                        category = "秩序问题";
+                        break;
+                }
+            }
+        });
+        //为重要程度radioButton绑定事件监听器
+        importanceGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch(i)
+                {
+                    case R.id.rb_importent:
+                        degree = 1;
+                        break;
+                    case R.id.rb_normal:
+                        degree = 0;
+                        break;
+                }
+            }
+        });
+
     }
 
-    //上传
+    //上传信息
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void Upload() {
 
         //获取用户填写的数据
-        String title = eTitle.getText().toString();
-        String desc = eDescribe.getText().toString();
-        String address = locationMsg.getText().toString();
-
+        title = eTitle.getText().toString();
+        desc = eDescribe.getText().toString();
+        address = locationMsg.getText().toString();
+        imageUrl = "http://49.235.134.191:8080/images/123.jpg";
+        //从本地读取保存的登录信息
+        Map<String,String> userInfo = SaveSharedPreferences.getUserInfo(this);
+        if (userInfo!=null)
+            account = userInfo.get("Account");
         //封装为FeedBack对象
+        FeedBack feedBack = new FeedBack();
+        feedBack.setImageUrl(imageUrl);
+        feedBack.setTitle(title);
+        feedBack.setDesc(desc);
+        feedBack.setAccount(account);
+        feedBack.setAddress(address);
+        feedBack.setCategory(category);
+        feedBack.setDegree(degree);
+        feedBack.setTime(new Date());   //2021-11-06T13:14:25.909+00:00
+        feedBack.setProcess("已提交");
+        //序列化
+        Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+                .create();
+        String json = gson.toJson(feedBack);
+        Log.e("jsonnnn",json);
+        //上传
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        UploadServer uploadServer = retrofit.create(UploadServer.class);
+        RequestBody requestBody = RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), json);
+        Log.e("requestBodyyyyyyyy",requestBody.toString());
+        Call<Result> resultCall = uploadServer.uploadInfo(requestBody);
+        resultCall.enqueue(new Callback<Result>() {
+            @Override
+            public void onResponse(Call<Result> call, Response<Result> response) {
+                Log.e("rawwwwww",response.raw().toString());
+//                if (res == 200)
+//                {
+//                    Toast.makeText(getApplicationContext(), "上传成功", Toast.LENGTH_SHORT).show();
+//
+//                }
+//                else
+//                    Toast.makeText(getApplicationContext(), "上传失败", Toast.LENGTH_SHORT).show();
+            }
 
-
+            @Override
+            public void onFailure(Call<Result> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "上传失败", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
