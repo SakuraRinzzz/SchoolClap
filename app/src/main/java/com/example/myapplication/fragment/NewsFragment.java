@@ -1,12 +1,10 @@
 package com.example.myapplication.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,13 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.myapplication.MainFragment;
 import com.example.myapplication.entity.News;
 import com.example.myapplication.entity.Result;
 import com.example.myapplication.util.NewsAdapter;
 import com.example.myapplication.R;
-import com.example.myapplication.util.NewsServer;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.example.myapplication.server.NewsServer;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
