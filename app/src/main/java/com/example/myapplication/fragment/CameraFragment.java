@@ -36,13 +36,7 @@ public class CameraFragment extends Fragment implements View.OnClickListener{
         ImageView img_upload = view.findViewById(R.id.img_upload);
         ImageView img_history = view.findViewById(R.id.img_history);
 
-        img_history.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavController controller = Navigation.findNavController(view);
-                controller.navigate(R.id.action_cameraFragment_to_uploadFragment);
-            }
-        });
+        img_history.setOnClickListener(this);
         img_upload.setOnClickListener(this);
 
         return view;
