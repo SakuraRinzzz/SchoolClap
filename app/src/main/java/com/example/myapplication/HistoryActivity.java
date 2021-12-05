@@ -12,6 +12,7 @@ import com.example.myapplication.entity.FeedBack;
 import com.example.myapplication.entity.Result;
 import com.example.myapplication.server.HistoryServer;
 import com.example.myapplication.adapter.HistoryAdapter;
+import com.example.myapplication.util.GlobalConstants;
 import com.example.myapplication.util.SaveSharedPreferences;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -28,7 +29,6 @@ import retrofit2.Retrofit;
 
 public class HistoryActivity extends AppCompatActivity {
 
-    private final String BASE_URL = "http://49.235.134.191:8080";
     private String account;
     private RecyclerView recyclerView;
     private List<FeedBack> list;
@@ -38,7 +38,7 @@ public class HistoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_history);
 
 
-        Retrofit retrofit=new Retrofit.Builder().baseUrl(BASE_URL).build();
+        Retrofit retrofit=new Retrofit.Builder().baseUrl(GlobalConstants.BASE_URL).build();
         HistoryServer server=retrofit.create(HistoryServer.class);
         Map<String, String> userInfo = SaveSharedPreferences.getUserInfo(this);
 

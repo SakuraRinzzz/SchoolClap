@@ -25,9 +25,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
+            android:name=".ProcessActivity"
+            android:exported="true" />
+        <activity
             android:name=".HistoryActivity"
             android:exported="true"
-            android:parentActivityName=".MainFragment"/>
+            android:parentActivityName=".MainFragment" />
         <activity
             android:name=".UploadActivity"
             android:exported="true"
@@ -60,7 +63,7 @@
         <activity
             android:name=".RegisterActivity"
             android:exported="true"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>

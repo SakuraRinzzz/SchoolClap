@@ -18,6 +18,7 @@ import com.example.myapplication.entity.Result;
 import com.example.myapplication.adapter.NewsAdapter;
 import com.example.myapplication.R;
 import com.example.myapplication.server.NewsServer;
+import com.example.myapplication.util.GlobalConstants;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -41,7 +42,6 @@ public class NewsFragment extends Fragment {
 
     private List<News> newsList = new ArrayList<>();
     private RecyclerView recyclerView;
-    private final String BASE_URL = "http://49.235.134.191:8080";
 
     public NewsFragment() {
     }
@@ -71,7 +71,7 @@ public class NewsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_news, container, false);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(GlobalConstants.BASE_URL)
                 .build();
 
         NewsServer server = retrofit.create(NewsServer.class);

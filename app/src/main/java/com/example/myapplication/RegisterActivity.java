@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.entity.Result;
 import com.example.myapplication.server.RegisterServer;
+import com.example.myapplication.util.GlobalConstants;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,7 +21,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private final String BASE_URL = "http://49.235.134.191:8080";
     private Activity activity;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +64,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(GlobalConstants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         RegisterServer server = retrofit.create(RegisterServer.class);

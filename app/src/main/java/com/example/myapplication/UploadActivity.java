@@ -93,7 +93,6 @@ public class UploadActivity extends AppCompatActivity {
 
     // 拍照的照片的存储位置
     private String mTempPhotoPath;
-    private final String BASE_URL = "http://49.235.134.191:8080";
     // 照片所在的Uri地址
     private Uri imageUri;
 
@@ -212,7 +211,7 @@ public class UploadActivity extends AppCompatActivity {
         Log.e("jsonnnn",json);
         //上传
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(GlobalConstants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         UploadServer uploadServer = retrofit.create(UploadServer.class);

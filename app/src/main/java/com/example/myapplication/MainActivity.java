@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.myapplication.entity.Result;
 import com.example.myapplication.server.LoginServer;
 import com.example.myapplication.server.RegisterServer;
+import com.example.myapplication.util.GlobalConstants;
 import com.example.myapplication.util.SaveSharedPreferences;
 
 import java.util.Map;
@@ -31,11 +32,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText etPassword;
     private TextView register_request;
     private Button login_button;
-
-    private final String BASE_URL = "http://49.235.134.191:8080";
-    final String ACCOUNT="ROOT";
-    final String PASSWORD="123456";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void requestLogin(String account, String password) {
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(GlobalConstants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         LoginServer server = retrofit.create(LoginServer.class);
