@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.example.myapplication.HistoryActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.UploadActivity;
 
@@ -57,8 +58,8 @@ public class CameraFragment extends Fragment implements View.OnClickListener{
 
                 break;
             case R.id.img_history:
-
-
+                Intent intent1=new Intent(getActivity(), HistoryActivity.class);
+                startActivity(intent1);
                 break;
         }
 
