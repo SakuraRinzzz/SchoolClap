@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.myapplication.entity.FeedBack;
@@ -37,7 +39,6 @@ public class HistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
-
         Retrofit retrofit=new Retrofit.Builder().baseUrl(GlobalConstants.BASE_URL).build();
         HistoryServer server=retrofit.create(HistoryServer.class);
         Map<String, String> userInfo = SaveSharedPreferences.getUserInfo(this);
@@ -53,7 +54,7 @@ public class HistoryActivity extends AppCompatActivity {
                     recyclerView=findViewById(R.id.history_list);
                     Result result=gson.fromJson(response.body().string(),Result.class);
                     if (result.getCode()==200){
-                        Toast.makeText(HistoryActivity.this , "连接成功", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(HistoryActivity.this , "连接成功", Toast.LENGTH_SHORT).show();
                         list=getHistoryInfo(result);
                         Log.i("history",list.toString());
                         LinearLayoutManager manager=new LinearLayoutManager(HistoryActivity.this);
@@ -83,4 +84,7 @@ public class HistoryActivity extends AppCompatActivity {
         String jsonHistory=gson.toJson(data);
         return gson.fromJson(jsonHistory, type);
     }
+
+
+
 }

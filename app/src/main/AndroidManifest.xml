@@ -26,7 +26,8 @@
         android:theme="@style/Theme.MyApplication">
         <activity
             android:name=".ProcessActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:parentActivityName=".HistoryActivity"/>
         <activity
             android:name=".HistoryActivity"
             android:exported="true"

@@ -2,9 +2,12 @@ package com.example.myapplication.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.myapplication.ProcessActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.entity.FeedBack;
 
@@ -59,6 +63,21 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String date = sdf.format(history.getTime());
         holder.date.setText(date);
+
+        holder.processBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showProcess(history.getId());
+            }
+        });
+    }
+
+    private void showProcess(long feedBackId) {
+        Intent intent = new Intent(context, ProcessActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putLong("feedBackId",feedBackId);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
     }
 
     @Override
@@ -74,6 +93,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         private TextView status;
         private TextView date;
         private ImageView image;
+        private Button processBtn;      //查看进度按钮
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -83,6 +103,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
             status = itemView.findViewById(R.id.history_status);
             date = itemView.findViewById(R.id.history_date);
             image = itemView.findViewById(R.id.history_img);
+            processBtn = itemView.findViewById(R.id.show_process);
         }
     }
 }

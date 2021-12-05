@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.myapplication.R;
-import com.example.myapplication.entity.FeedBack;
 import com.example.myapplication.entity.ProcessBean;
 
 import java.text.SimpleDateFormat;
@@ -47,14 +46,20 @@ public class ProcessAdapter extends RecyclerView.Adapter<ProcessAdapter.ViewHold
         ProcessBean bean = processList.get(position);
 
         processDesc = bean.getDesc();
-        if (processDesc.equals(R.string.process_submitted))
-            processImg = R.drawable.submit;
-        else if (processDesc.equals(R.string.process_waiting))
-            processImg = R.drawable.waiting;
-        else if (processDesc.equals(R.string.process_processing))
-            processImg = R.drawable.handling;
-        else
-            processImg = R.drawable.finish;
+        switch (processDesc) {
+            case "已提交":
+                processImg = R.drawable.submit;
+                break;
+            case "等待处理":
+                processImg = R.drawable.waiting;
+                break;
+            case "处理中":
+                processImg = R.drawable.handling;
+                break;
+            default:
+                processImg = R.drawable.finish;
+                break;
+        }
 
 
         RequestOptions requestOptions = new RequestOptions();
