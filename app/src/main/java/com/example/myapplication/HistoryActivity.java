@@ -43,9 +43,9 @@ public class HistoryActivity extends AppCompatActivity {
         Retrofit retrofit=new Retrofit.Builder().baseUrl(BASE_URL).build();
         HistoryServer server=retrofit.create(HistoryServer.class);
         Map<String, String> userInfo = SaveSharedPreferences.getUserInfo(this);
-        if (userInfo!=null){
-            account=userInfo.get("Account");
-        }
+
+        account=userInfo.get("Account");
+
         Call<ResponseBody> call=server.getHistory(account);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -56,8 +56,8 @@ public class HistoryActivity extends AppCompatActivity {
                     Result result=gson.fromJson(response.body().string(),Result.class);
                     if (result.getCode()==200){
                         Toast.makeText(HistoryActivity.this , "连接成功", Toast.LENGTH_SHORT).show();
-                        list = getHistoryInfo(result);
-                        Toast.makeText(HistoryActivity.this , "列表长度："+list.size(), Toast.LENGTH_SHORT).show();
+                        list=getHistoryInfo(result);
+                        Log.i("history",list.toString());
                         LinearLayoutManager manager=new LinearLayoutManager(HistoryActivity.this);
                         recyclerView.setLayoutManager(manager);
                         recyclerView.setAdapter(new HistoryAdapter(list,HistoryActivity.this));
@@ -83,7 +83,6 @@ public class HistoryActivity extends AppCompatActivity {
         Gson gson=new Gson();
         Type type=new TypeToken<List<FeedBack>>(){}.getType();
         String jsonHistory=gson.toJson(data);
-        List<FeedBack> list= gson.fromJson(jsonHistory, type);
-        return list;
+        return gson.fromJson(jsonHistory, type);
     }
 }

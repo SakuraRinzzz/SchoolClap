@@ -30,7 +30,7 @@ public class FeedBack {
                 ", degree=" + degree +
                 ", time=" + time +
                 ", process='" + process + '\'' +
-                '}';
+                '}'+"\n";
     }
 
     public long getId() {
