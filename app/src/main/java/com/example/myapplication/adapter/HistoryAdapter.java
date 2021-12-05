@@ -1,6 +1,7 @@
 package com.example.myapplication.adapter;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.myapplication.R;
 import com.example.myapplication.entity.FeedBack;
 
@@ -20,11 +23,11 @@ import java.util.List;
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
 
     private List<FeedBack> historyList = new ArrayList<>();
-    private Activity activity;
+    private Context context;
 
-    public HistoryAdapter(List<FeedBack> arrayList, Activity activity) {
+    public HistoryAdapter(List<FeedBack> arrayList, Context context) {
         this.historyList = arrayList;
-        this.activity = activity;
+        this.context = context;
     }
 
     @NonNull
@@ -41,8 +44,12 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         FeedBack history = historyList.get(position);
 
-//        Glide.with(activity).load(history.getImageUrl())
-//                .into(holder.image);
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions.placeholder(R.drawable.ic_launcher_background);
+        Glide.with(context).load(history.getImageUrl())
+                .apply(requestOptions)
+                .into(holder.image);
+
 
         holder.title.setText(history.getTitle());
         holder.description.setText(history.getDesc());
@@ -75,7 +82,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
             type = itemView.findViewById(R.id.history_type);
             status = itemView.findViewById(R.id.history_status);
             date = itemView.findViewById(R.id.history_date);
-            image = itemView.findViewById(R.id.img_history);
+            image = itemView.findViewById(R.id.history_img);
         }
     }
 }

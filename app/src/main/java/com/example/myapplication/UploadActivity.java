@@ -222,14 +222,9 @@ public class UploadActivity extends AppCompatActivity {
         resultCall.enqueue(new Callback<Result>() {
             @Override
             public void onResponse(Call<Result> call, Response<Result> response) {
-                Log.e("rawwwwww",response.raw().toString());
-//                if (res == 200)
-//                {
-//                    Toast.makeText(getApplicationContext(), "上传成功", Toast.LENGTH_SHORT).show();
-//
-//                }
-//                else
-//                    Toast.makeText(getApplicationContext(), "上传失败", Toast.LENGTH_SHORT).show();
+//                Log.e("rawwwwww",response.raw().toString());
+                Toast.makeText(getApplicationContext(), "上传成功！", Toast.LENGTH_SHORT).show();
+                finish();
             }
 
             @Override
