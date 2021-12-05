@@ -9,11 +9,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.myapplication.entity.FeedBack;
-import com.example.myapplication.entity.News;
 import com.example.myapplication.entity.Result;
-import com.example.myapplication.entity.UploadHistoryFeedback;
 import com.example.myapplication.server.HistoryServer;
-import com.example.myapplication.util.HistoryAdapter;
+import com.example.myapplication.adapter.HistoryAdapter;
 import com.example.myapplication.util.SaveSharedPreferences;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

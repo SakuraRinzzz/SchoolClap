@@ -1,28 +1,17 @@
 package com.example.myapplication;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.myapplication.entity.Result;
-import com.example.myapplication.fragment.NewsFragment;
 import com.example.myapplication.server.RegisterServer;
-import com.example.myapplication.util.NewsAdapter;
-import com.google.gson.Gson;
 
-import java.io.IOException;
-
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

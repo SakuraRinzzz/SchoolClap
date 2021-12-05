@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.example.myapplication.entity.News;
 import com.example.myapplication.entity.Result;
-import com.example.myapplication.util.NewsAdapter;
+import com.example.myapplication.adapter.NewsAdapter;
 import com.example.myapplication.R;
 import com.example.myapplication.server.NewsServer;
 import com.google.gson.Gson;

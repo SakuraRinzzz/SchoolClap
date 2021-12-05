@@ -1,6 +1,5 @@
-package com.example.myapplication.util;
+package com.example.myapplication.adapter;
 
-import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,15 +15,9 @@ import com.example.myapplication.entity.News;
 import com.example.myapplication.R;
 import com.example.myapplication.fragment.NewsFragment;
 
-import org.w3c.dom.Text;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.SimpleFormatter;
-
-import okhttp3.ResponseBody;
-import retrofit2.Callback;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 

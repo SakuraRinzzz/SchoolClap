@@ -1,7 +1,6 @@
-package com.example.myapplication.util;
+package com.example.myapplication.adapter;
 
 import android.app.Activity;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,15 +8,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
 import com.example.myapplication.entity.FeedBack;
-import com.example.myapplication.entity.News;
-import com.example.myapplication.entity.UploadHistoryFeedback;
-import com.example.myapplication.fragment.NewsFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
