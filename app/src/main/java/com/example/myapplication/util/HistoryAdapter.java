@@ -47,8 +47,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         FeedBack history = historyList.get(position);
 
-        Glide.with(activity).load(history.getImageUrl())
-                .into(holder.image);
+//        Glide.with(activity).load(history.getImageUrl())
+//                .into(holder.image);
 
         holder.title.setText(history.getTitle());
         holder.description.setText(history.getDesc());

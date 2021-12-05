@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.myapplication.entity.FeedBack;
@@ -51,11 +52,12 @@ public class HistoryActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Gson gson=new Gson();
                 try {
-                    recyclerView=findViewById(R.id.list);
+                    recyclerView=findViewById(R.id.history_list);
                     Result result=gson.fromJson(response.body().string(),Result.class);
                     if (result.getCode()==200){
                         Toast.makeText(HistoryActivity.this , "连接成功", Toast.LENGTH_SHORT).show();
-                        list=getHistoryInfo(result);
+                        list = getHistoryInfo(result);
+                        Toast.makeText(HistoryActivity.this , "列表长度："+list.size(), Toast.LENGTH_SHORT).show();
                         LinearLayoutManager manager=new LinearLayoutManager(HistoryActivity.this);
                         recyclerView.setLayoutManager(manager);
                         recyclerView.setAdapter(new HistoryAdapter(list,HistoryActivity.this));
