@@ -13,6 +13,11 @@
     <string name="news_title">校园新闻</string>
     <string name="homepage_title">个人主页</string>
     <string name="camera_title">随手拍</string>
+    
+    <string name="process_submitted">已提交</string>
+    <string name="process_waiting">等待处理</string>
+    <string name="process_processing">处理中</string>
+    <string name="process_done">处理完成</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
