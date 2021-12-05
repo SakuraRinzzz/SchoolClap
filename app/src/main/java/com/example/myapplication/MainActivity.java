@@ -87,21 +87,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 //发送登录请求
                 requestLogin(account,password);
-
-//                if (account.equals(ACCOUNT)&& password.equals(PASSWORD))
-//                {
-//                    i =new Intent(MainActivity.this,MainFragment.class);
-//                    startActivity(i);
-//                    Toast.makeText(MainActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-//                    SaveSharedPreferences.saveUserInfo(this,account,password);
-//                    Toast.makeText(MainActivity.this, "账号密码保存成功", Toast.LENGTH_SHORT).show();
-//                    finish();
-//                }
-//                else
-//                {
-//                    Toast.makeText(MainActivity.this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
                 break;
         }
     }

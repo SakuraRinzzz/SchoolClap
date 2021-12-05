@@ -12,21 +12,25 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.Window;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myapplication.fragment.CameraFragment;
 import com.example.myapplication.fragment.HomeFragment;
 import com.example.myapplication.fragment.NewsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.security.Key;
+
 public class MainFragment extends AppCompatActivity{
 
+    private long exitTime = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main_fragment);
 
         //初始化
@@ -41,6 +45,7 @@ public class MainFragment extends AppCompatActivity{
         NavigationUI.setupWithNavController(bottomMenu,navController);
 
 
+
 //        FragmentManager fragmentManager = getSupportFragmentManager();
 //        NavHostFragment navHostFragment = (NavHostFragment) fragmentManager.findFragmentById(R.id.fragmentContainerView);
 //        NavController navController = navHostFragment.getNavController();
@@ -49,4 +54,21 @@ public class MainFragment extends AppCompatActivity{
 
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK)
+        {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                Toast.makeText(getApplicationContext(), "再按一次退出程序",
+                        Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+                return true;
+            } else {
+                finish();
+                System.exit(0);
+            }
+        }
+        return super.onKeyDown(keyCode, event);
+
+    }
 }
