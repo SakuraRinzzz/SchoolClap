@@ -20,5 +20,9 @@
     <string name="process_done">处理完成</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="process_result">处理结果</string>
+    <string name="process_speed">处理速度</string>
+    <string name="advice">提供一些建议...</string>
+    <string name="submit_evaluation">发布评价</string>
 
 </resources>

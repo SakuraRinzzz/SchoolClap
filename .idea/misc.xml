@@ -3,19 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android/SchoolClap/app/src/main/res/layout/activity_assess.xml" value="0.22735507246376813" />
         <entry key="..\:/Android/SchoolClap/app/src/main/res/layout/activity_history.xml" value="0.19384057971014493" />
+        <entry key="..\:/Android/SchoolClap/app/src/main/res/layout/activity_login_relativelayout.xml" value="0.22735507246376813" />
+        <entry key="..\:/Android/SchoolClap/app/src/main/res/layout/activity_process.xml" value="0.22735507246376813" />
         <entry key="..\:/Android/SchoolClap/app/src/main/res/layout/activity_register_constraintlayout.xml" value="0.18840579710144928" />
         <entry key="..\:/Android/SchoolClap/app/src/main/res/layout/activity_upload.xml" value="0.19384057971014493" />
         <entry key="..\:/Android/SchoolClap/app/src/main/res/layout/fragment_camera.xml" value="0.18840579710144928" />
         <entry key="..\:/Android/SchoolClap/app/src/main/res/layout/fragment_news.xml" value="0.18840579710144928" />
         <entry key="..\:/Android/SchoolClap/app/src/main/res/layout/fragment_upload.xml" value="0.19384057971014493" />
         <entry key="..\:/Android/SchoolClap/app/src/main/res/layout/history_item.xml" value="0.19384057971014493" />
+        <entry key="..\:/Android/SchoolClap/app/src/main/res/layout/process_item.xml" value="0.22735507246376813" />
         <entry key="..\:/AndroidProgram/MyApplication2/app/main/res/menu/menu_btn_navigation_view.xml" value="0.25364583333333335" />
         <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/main/res/menu/menu_btn_navigation_view.xml" value="0.25364583333333335" />
         <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/res/layout/activity_history.xml" value="0.22916666666666666" />
         <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/res/layout/activity_main_fragment.xml" value="0.264" />
         <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/res/layout/activity_map.xml" value="0.20471014492753623" />
-        <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/res/layout/activity_process.xml" value="0.21693840579710144" />
         <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/res/layout/activity_register_constraintlayout.xml" value="0.22509057971014493" />
         <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/res/layout/activity_upload.xml" value="0.21784420289855072" />
         <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/res/layout/fragment_camera.xml" value="0.264" />
@@ -26,7 +29,6 @@
         <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/res/layout/news_item.xml" value="0.264" />
         <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/res/layout/news_item2.xml" value="0.4" />
         <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/res/layout/news_list_item.xml" value="0.1911231884057971" />
-        <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/res/layout/process_item.xml" value="0.4" />
         <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/res/menu/bottom_sheet.xml" value="0.27447916666666666" />
         <entry key="..\:/AndroidProgram/MyApplication2/app/src/main/res/menu/menu_btn_navigation_view.xml" value="0.25364583333333335" />
       </map>

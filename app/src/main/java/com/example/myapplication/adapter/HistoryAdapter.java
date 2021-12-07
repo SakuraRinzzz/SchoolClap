@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.myapplication.EvaluateActivity;
 import com.example.myapplication.ProcessActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.entity.FeedBack;
@@ -70,6 +71,20 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
                 showProcess(history.getId());
             }
         });
+        holder.evaluateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goEvaluate(history.getId());
+            }
+        });
+    }
+
+    private void goEvaluate(long feedBackId){
+        Intent intent=new Intent(context, EvaluateActivity.class);
+        Bundle bundle=new Bundle();
+        bundle.putLong("feedBackId",feedBackId);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
     }
 
     private void showProcess(long feedBackId) {
@@ -94,6 +109,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         private TextView date;
         private ImageView image;
         private Button processBtn;      //查看进度按钮
+        private Button evaluateBtn;   //发布评价按钮
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -104,6 +120,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
             date = itemView.findViewById(R.id.history_date);
             image = itemView.findViewById(R.id.history_img);
             processBtn = itemView.findViewById(R.id.show_process);
+            evaluateBtn=itemView.findViewById(R.id.go_comment);
         }
     }
 }

@@ -65,6 +65,9 @@
             android:name=".RegisterActivity"
             android:exported="true"
             android:parentActivityName=".MainActivity" />
+        <activity android:name=".EvaluateActivity"
+            android:exported="true"
+            android:parentActivityName=".HistoryActivity"/>
     </application>
 
 </manifest>
