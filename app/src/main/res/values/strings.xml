@@ -24,5 +24,8 @@
     <string name="process_speed">处理速度</string>
     <string name="advice">提供一些建议...</string>
     <string name="submit_evaluation">发布评价</string>
+    <string name="outLogin">退出登录</string>
+    <string name="accountName">用户名</string>
+    <string name="nameDefault">默认用户名</string>
 
 </resources>

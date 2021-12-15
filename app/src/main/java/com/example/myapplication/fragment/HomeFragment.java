@@ -1,5 +1,7 @@
 package com.example.myapplication.fragment;
 
+import android.Manifest;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,8 +9,16 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
+import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
+import com.example.myapplication.util.SaveSharedPreferences;
+
+import java.util.Map;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,7 +35,10 @@ public class HomeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private CircleImageView circleImageView;
+    private Button button_logout;
+    private TextView textView;
+    private String account;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -61,6 +74,28 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        initial(view);
+        Map<String,String> userInfo = SaveSharedPreferences.getUserInfo(getContext());
+
+        if (userInfo!=null)
+            account = userInfo.get("Account");
+        textView.setText(account);
+        button_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(getContext(), MainActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
+            }
+        });
+        return view;
+    }
+
+    private void initial(View view) {
+        circleImageView=view.findViewById(R.id.profile_image);
+        button_logout=view.findViewById(R.id.logout);
+        textView=view.findViewById(R.id.textView7);
     }
 }
